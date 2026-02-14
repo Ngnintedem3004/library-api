@@ -1,16 +1,16 @@
-## Install environnement virtuel python
+## Install virtual  environment  python
 
 ```
 python -m venv .venv
 ```
 
-## Activate environnement
+## Activate environment
 
 ```
 .venv\Scripts\activate
 ```
 
-## Installer les dépendances
+## Install dependencies
 
 ```
 pip install fastapi uvicorn
@@ -22,19 +22,19 @@ pip install fastapi uvicorn
 python.exe -m pip install --upgrade pip
 ```
 
-### Vérifier l'installation
+### Verify installation
 
 ```
 python -c import fastapi; print(fastapi.**version**)
 ```
 
-### Lancer le serveur
+### Run the server
 
 ```
 uvicorn app.main:app --reload
 ```
 
-### Intégrer la base de données Postgres
+### Add postgress  database
 
 ```
 pip install fastapi uvicorn sqlalchemy psycopg2-binary
