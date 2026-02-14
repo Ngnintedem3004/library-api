@@ -1,15 +1,22 @@
 ### install environnement  virtuel python 
-```python -m venv .venv`
+```markdown
+   python -m venv .venv`
 ### activate environnement 
-```.venv\Scripts\activate `
+```markdown
+   .venv\Scripts\activate
 ### Installer les dépendances 
-```pip install fastapi uvicorn `
+```markdown
+   pip install fastapi uvicorn 
 ### Upgrade 
-```python.exe -m pip install --upgrade pip`
+```markdown
+   python.exe -m pip install --upgrade pip`
 ### Vérifier l'installation
-```python -c import fastapi; print(fastapi.__version__)`
+```markdown
+   python -c import fastapi; print(fastapi.__version__)
 ### Lancer le serveur 
- ```uvicorn app.main:app --reload`
+ ```markdown
+    uvicorn app.main:app --reload
 ### Intégrer la base de données Postgres 
-```pip install fastapi uvicorn sqlalchemy psycopg2-binary`
+```markdown
+   pip install fastapi uvicorn sqlalchemy psycopg2-binary`
 
