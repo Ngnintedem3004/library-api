@@ -3,12 +3,11 @@ from pydantic import BaseModel, Field
 from typing import Optional
 
 class BookCreate(BaseModel):
-    id: Optional[int] = Field(None, description="ID unique (auto-généré)")
     title: str = Field(..., min_length=3, max_length=200, description="Titre du livre")
     author: str = Field(..., min_length=2, max_length=100, description="Auteur du livre")
-    year: Optional[int] = Field(None, ge=1000, le=2100, description="Année de publication")
-    genre: Optional[str] = Field(None, max_length=50, description="Genre littéraire")
-    isbn: Optional[str] = Field(None, max_length=17, description="Code ISBN-13")
+    year: int = Field(..., ge=1000, le=2100, description="Année de publication")
+    genre: str = Field(..., max_length=50, description="Genre littéraire")
+    isbn: str = Field(..., max_length=17, description="Code ISBN-13")
     
     class Config:
         json_schema_extra = {

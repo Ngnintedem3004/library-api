@@ -1,6 +1,5 @@
 
-from tokenize import String
-from sqlalchemy import Column, Integer
+from sqlalchemy import Column, Integer, String
 from database import Base
 
 class Book(Base):
@@ -10,3 +9,5 @@ class Book(Base):
     title = Column(String, index=True)
     author = Column(String, index=True)
     published_year = Column(Integer)
+    genre = Column(String, nullable=True)
+    isbn = Column(String, nullable=True)
