@@ -1,5 +1,4 @@
 ## install environnement virtuel python
-
 ```python -m venv .venv
 ```
 ## activate environnement
