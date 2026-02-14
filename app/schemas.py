@@ -2,7 +2,7 @@
 from pydantic import BaseModel, Field
 from typing import Optional
 
-class Book(BaseModel):
+class BookCreate(BaseModel):
     id: Optional[int] = Field(None, description="ID unique (auto-généré)")
     title: str = Field(..., min_length=3, max_length=200, description="Titre du livre")
     author: str = Field(..., min_length=2, max_length=100, description="Auteur du livre")
