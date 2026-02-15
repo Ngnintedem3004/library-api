@@ -7,7 +7,26 @@ from sqlalchemy.orm import Session
 
 router = APIRouter(prefix="/books", tags=["books"])
 
-@router.post("", response_model=BookCreate, status_code=201)
+@router.post("", response_model=BookCreate, status_code=201,
+             summary="Créer un nouveau livre", description="""
+    Crée un nouveau livre dans la bibliothèque.
+    
+    ## Validations
+    - **title** : 3-200 caractères
+    - **author** : 2-100 caractères
+    - **year** : 1000-2100 (optionnel)
+    - **isbn** : Format ISBN-13 (optionnel)
+    
+    ## Headers de réponse
+    - **Location** : URL de la ressource créée (/books/{id})
+    """,
+             response_description="Le livre créé avec succès",
+                responses={
+                    201: {"description": "Livre créé avec succès"},
+                    400: {"description": "Requête invalide"},
+                    500: {"description": "Erreur serveur"}
+                }
+             )
 def create_book( payload: BookCreate, db: Session = Depends(get_db)):
     book = Book(
         title=payload.title,
