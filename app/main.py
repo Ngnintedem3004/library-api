@@ -1,6 +1,7 @@
 from  fastapi import FastAPI
 
-from app.routers import books
+from app.routers.books import router as router_books
+from app.routers.authentication import router as router_authentication
 
 app = FastAPI(
     title="Library API",
@@ -15,18 +16,21 @@ app = FastAPI(
         "name": "MIT License",
         "url": "https://opensource.org/licenses/MIT"
     },
-    openapi_tags=[                          # Tags pour organiser les routes
+
+    openapi_tags=[  
+         {
+            "name": "auth",
+            "description": "Gestion des utilisateurs"
+        },                        # Tags pour organiser les routes
         {
             "name": "books",
             "description": "Opérations sur les livres"
         },
-        {
-            "name": "users",
-            "description": "Gestion des utilisateurs"
-        }
+       
     ]
 )
-app.include_router(books.router)
-@app.get("/")
+app.include_router(router_authentication)
+app.include_router(router_books)
+app.get("/")
 def read_root():
     return {"message": "Bienvenue dans la bibliothèque API!"}

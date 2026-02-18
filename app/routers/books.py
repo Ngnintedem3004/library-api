@@ -1,5 +1,6 @@
 from typing import List 
 from fastapi import APIRouter, Depends, HTTPException
+from  app.auth  import User, get_current_user , get_current_active_user
 from app.models import Book
 from app.schemas import *
 from database import get_db
@@ -27,7 +28,7 @@ router = APIRouter(prefix="/books", tags=["books"])
                     500: {"description": "Erreur serveur"}
                 }
              )
-def create_book( payload: BookCreate, db: Session = Depends(get_db)):
+def create_book( payload: BookCreate, db: Session = Depends(get_db), current_user: User = Depends(get_current_active_user)):
     book = Book(
         title=payload.title,
         author=payload.author,
@@ -41,7 +42,7 @@ def create_book( payload: BookCreate, db: Session = Depends(get_db)):
     return book
 
 @router.get("/{book_id}", response_model=BookRead, status_code=200)
-def read_book(book_id: int, db: Session = Depends(get_db)):
+def read_book(book_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_active_user)):
     book = db.query(Book).filter(Book.id == book_id).first()
     if not book:
         raise HTTPException(status_code=404, detail="Livre non trouvé")
@@ -83,3 +84,11 @@ def patch_book(book_id: int, payload: BookPatch, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(book)
     return book
+@router.delete("/{book_id}", status_code=204)
+def delete_book(book_id: int, db: Session = Depends(get_db), current_user: User = Depends(get_current_active_user)):
+    book = db.query(Book).filter(Book.id == book_id).first()
+    if not book:
+        raise HTTPException(status_code=404, detail="Livre non trouvé")
+    db.delete(book)
+    db.commit()
+    return {"detail": f"Livre supprimé avec succès par l'utilisateur {current_user.username}" }
